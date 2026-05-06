@@ -34,6 +34,30 @@
     color: var(--white);
     font-family: 'Barlow', sans-serif;
     overflow-x: hidden;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.18;
+    filter: blur(1px) brightness(0.35) saturate(1.1);
+    pointer-events: none;
+  }
+
+  .bg-video-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(5,5,8,0.35) 0%, rgba(5,5,8,0.7) 40%, rgba(5,5,8,0.88) 100%),
+      radial-gradient(circle at center, rgba(232,0,29,0.18) 0%, transparent 55%);
   }
 
   /* PARTICLES */
@@ -41,7 +65,7 @@
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: 0;
+    z-index: 1;
     pointer-events: none;
   }
 
@@ -245,7 +269,7 @@
   /* SECTIONS */
   section {
     position: relative;
-    z-index: 1;
+    z-index: 3;
   }
 
   .section-inner {
@@ -893,6 +917,10 @@
 </head>
 <body>
 
+<video class="bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+  <source src="TEKKEN%208%20%E2%80%93%20OFFICIAL%20LAUNCH%20TRAILER%20-%20Bandai%20Namco%20Entertainment%20America%20(1080p).mp4" type="video/mp4">
+</video>
+<div class="bg-video-overlay"></div>
 <div id="particles-js"></div>
 <div class="scanlines"></div>
 
@@ -963,8 +991,8 @@
   <div class="stats-row reveal">
     <div class="stat-cell">
       <div class="stat-num">300<span>+</span></div>
-      <div class="stat-label">Expected Attendance</div>
-      <div class="stat-sub">Players + Spectators</div>
+      <div class="stat-label">Foot Traffic</div>
+      <div class="stat-sub">Players + Spectators Coming and Going</div>
     </div>
     <div class="stat-cell">
       <div class="stat-num">₱<span>30K</span></div>
@@ -1162,7 +1190,7 @@
       <tr><td><span><i class="fa-solid fa-gamepad detail-icon"></i>Format</span></td><td>Open Tournament — Tekken 8 (PS5 / PC)</td></tr>
       <tr><td><span><i class="fa-solid fa-trophy detail-icon"></i>Prize Pool</span></td><td class="highlight">₱30,000 guaranteed</td></tr>
       <tr><td><span><i class="fa-solid fa-ticket detail-icon"></i>Entry Fee</span></td><td>₱200 per competitor · Free for spectators</td></tr>
-      <tr><td><span><i class="fa-solid fa-users detail-icon"></i>Expected Attendance</span></td><td>300+ attendees (players + spectators)</td></tr>
+      <tr><td><span><i class="fa-solid fa-users detail-icon"></i>Foot Traffic</span></td><td>300+ people coming and going (players + spectators)</td></tr>
       <tr><td><span><i class="fa-solid fa-broadcast-tower detail-icon"></i>Broadcast</span></td><td>Live streaming & content capture on-site</td></tr>
     </table>
   </div>
