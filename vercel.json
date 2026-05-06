@@ -1,11 +1,4 @@
 {
   "buildCommand": "",
-  "outputDirectory": ".",
-  "cleanUrls": true,
-  "redirects": [
-    {
-      "source": "/:path((?!.*\\.html$).*)",
-      "destination": "/$1.html"
-    }
-  ]
+  "outputDirectory": "."
 }
