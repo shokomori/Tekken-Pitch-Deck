@@ -633,6 +633,85 @@
   }
   .inkind-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
 
+  /* INVITED PLAYERS & CREATORS */
+  .invited-bg {
+    background: var(--dark2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .invited-bg::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,0.06) 0%, transparent 70%);
+  }
+
+  .invited-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+    margin-top: 8px;
+  }
+
+  .invited-card {
+    background: var(--steel);
+    padding: 36px 28px;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .invited-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .invited-card:hover::before { transform: scaleX(1); }
+  .invited-card:hover { background: var(--steel2); transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.4); }
+
+  .invited-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    background: rgba(255,215,0,0.08);
+    border: 1px solid rgba(255,215,0,0.2);
+    color: var(--gold);
+    font-size: 1.2rem;
+  }
+
+  .invited-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    color: var(--white);
+  }
+
+  .invited-role {
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
   /* DETAILS TABLE */
   .details-bg { background: var(--dark2); }
 
@@ -932,6 +1011,7 @@
     <li><a href="#stats">Reach</a></li>
     <li><a href="#packages">Packages</a></li>
     <li><a href="#inkind">In-Kind</a></li>
+    <li><a href="#invited">Pro Players</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -1173,6 +1253,38 @@
         <span class="inkind-icon"><i class="fa-solid fa-lightbulb"></i></span>
         <div class="inkind-name">Other Services</div>
         <p class="inkind-desc">Lighting, photography, streaming gear, or any service that helps the event run. Let's talk — we're flexible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVITED PRO PLAYERS & CONTENT CREATORS -->
+<section id="invited" class="invited-bg">
+  <div class="section-inner">
+    <div class="section-label reveal">Community Stars</div>
+    <h2 class="section-title reveal">PRO PLAYERS &amp; <em>CONTENT</em> CREATORS INVITED</h2>
+    <p class="section-desc reveal">Top Tekken 8 professionals and recognized FGC content creators have been personally invited to attend and showcase their skills. Their presence elevates the competitive caliber and brings expert-level play to showcase the depth of Tekken 8 at the competitive scene.</p>
+
+    <div class="invited-grid">
+      <div class="invited-card reveal">
+        <span class="invited-icon"><i class="fa-solid fa-trophy"></i></span>
+        <div class="invited-name">Pro Players</div>
+        <div class="invited-role">Top Competitors</div>
+      </div>
+      <div class="invited-card reveal">
+        <span class="invited-icon"><i class="fa-solid fa-video"></i></span>
+        <div class="invited-name">Content Creators</div>
+        <div class="invited-role">Stream Personalities</div>
+      </div>
+      <div class="invited-card reveal">
+        <span class="invited-icon"><i class="fa-solid fa-microphone"></i></span>
+        <div class="invited-name">Commentators</div>
+        <div class="invited-role">Tournament Analysis</div>
+      </div>
+      <div class="invited-card reveal">
+        <span class="invited-icon"><i class="fa-solid fa-star"></i></span>
+        <div class="invited-name">Community Figures</div>
+        <div class="invited-role">FGC Influencers</div>
       </div>
     </div>
   </div>
