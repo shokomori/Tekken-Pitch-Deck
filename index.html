@@ -85,11 +85,20 @@
   }
 
   .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.4rem;
     letter-spacing: 0.12em;
     color: var(--red);
     text-shadow: 0 0 20px var(--red-glow);
+  }
+
+  .nav-logo img {
+    display: block;
+    height: 36px;
+    width: auto;
   }
 
   .nav-logo span { color: var(--white); }
@@ -1122,7 +1131,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">PAMPANGA <span>POWERHOUSE</span></div>
+  <div class="nav-logo"><img src="pampanga_powerhouse_2.3.png" alt="Pampanga Powerhouse logo"><span>PAMPANGA <span>POWERHOUSE</span></span></div>
   <ul class="nav-links">
     <li><a href="#overview">Overview</a></li>
     <li><a href="#stats">Reach</a></li>
