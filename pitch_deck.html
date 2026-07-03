@@ -131,7 +131,7 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    padding: 100px 24px 80px;
+    padding: 220px 24px 90px;
     overflow: hidden;
     z-index: 1;
   }
@@ -168,6 +168,7 @@
       0 0 120px rgba(232,0,29,0.2);
     opacity: 0;
     animation: fadeUp 0.9s 0.5s forwards;
+    margin-bottom: 6px;
   }
 
   .hero-title .t8 {
@@ -177,7 +178,7 @@
 
   .hero-logo {
     display: block;
-    width: min(84vw, 720px);
+    width: min(78vw, 680px);
     height: auto;
     margin: 0 auto;
     filter: drop-shadow(0 0 28px rgba(232,0,29,0.35));
@@ -266,6 +267,19 @@
     background: rgba(255,215,0,0.1);
     box-shadow: 0 0 24px rgba(255,215,0,0.3);
     transform: translateY(-2px);
+  }
+
+  .deck-switcher {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 120;
+  }
+
+  .deck-switcher .btn-secondary {
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    background: rgba(5,5,8,0.86);
+    backdrop-filter: blur(10px);
   }
 
   /* SCAN LINES OVERLAY */
@@ -809,11 +823,15 @@
   /* REGISTRATION */
   .registration-bg { background: var(--dark); }
 
+  #registration {
+    padding-top: 44px;
+  }
+
   .reg-grid {
     display: grid;
-    grid-template-columns: minmax(280px, 1fr) minmax(280px, 0.95fr);
+    grid-template-columns: minmax(240px, 1fr) minmax(320px, 1.3fr);
     gap: 18px;
-    align-items: stretch;
+    margin-top: 18px;
   }
 
   .reg-card,
@@ -823,9 +841,13 @@
     padding: 30px;
   }
 
-  .reg-panel {
-    display: grid;
-    gap: 16px;
+  .reg-fee {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    line-height: 1;
+    margin: 8px 0 14px;
   }
 
   .reg-list {
@@ -842,60 +864,39 @@
 
   .reg-form {
     display: grid;
-    gap: 18px;
-    align-content: start;
+    gap: 14px;
   }
 
-  .reg-cta-box {
-    background: linear-gradient(160deg, rgba(232,0,29,0.12), rgba(13,13,20,0.86));
-    border: 1px solid rgba(232,0,29,0.24);
-    padding: 26px;
-    display: grid;
-    gap: 16px;
-    align-items: center;
-    justify-items: center;
-    text-align: center;
-  }
-
-  .reg-cta-box h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 0.08em;
-    line-height: 1;
-  }
-
-  .reg-cta-box p {
+  .reg-form label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.74rem;
     color: var(--muted);
-    font-size: 0.92rem;
-    line-height: 1.65;
-    max-width: 320px;
   }
 
-  .qr-card {
-    width: min(100%, 220px);
-    padding: 16px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .qr-card img {
-    display: block;
+  .reg-form input,
+  .reg-form select,
+  .reg-form textarea {
     width: 100%;
-    height: auto;
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 12px 14px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.92rem;
+  }
+
+  .reg-form textarea {
+    min-height: 96px;
+    resize: vertical;
   }
 
   .reg-helper {
     color: var(--muted);
     font-size: 0.82rem;
     line-height: 1.5;
-  }
-
-  .mini-note {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
   }
 
   /* FAQ */
@@ -1136,71 +1137,6 @@
     display: inline-block;
   }
 
-  .register-spotlight {
-    display: grid;
-    grid-template-columns: minmax(220px, 240px) minmax(280px, 1fr);
-    gap: 18px;
-    margin-top: 34px;
-    align-items: center;
-    max-width: 860px;
-    width: 100%;
-    padding: 18px;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(13,13,20,0.52);
-    backdrop-filter: blur(10px);
-  }
-
-  .register-spotlight .qr-card {
-    width: 100%;
-  }
-
-  .register-copy {
-    text-align: left;
-  }
-
-  .register-copy h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.4rem);
-    letter-spacing: 0.06em;
-    line-height: 1;
-    margin-bottom: 10px;
-  }
-
-  .register-copy p {
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 16px;
-    max-width: 520px;
-  }
-
-  .register-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .register-actions .btn-primary,
-  .register-actions .btn-secondary {
-    min-width: 180px;
-    text-align: center;
-  }
-
-  .deck-switcher {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 120;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .deck-switcher .btn-primary,
-  .deck-switcher .btn-secondary {
-    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-  }
-
   @media (max-width: 640px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
@@ -1208,11 +1144,8 @@
     .stat-cell { padding: 40px 20px; }
     .details-table td { padding: 14px 16px; }
     .reg-grid { grid-template-columns: 1fr; }
-    .register-spotlight { grid-template-columns: 1fr; }
-    .register-copy { text-align: center; }
-    .register-actions { justify-content: center; }
     .deck-switcher { right: 14px; bottom: 14px; left: 14px; }
-    .deck-switcher a { width: 100%; text-align: center; }
+    .deck-switcher .btn-secondary { display: block; text-align: center; }
   }
 </style>
 </head>
@@ -1226,41 +1159,38 @@
 <div class="scanlines"></div>
 
 <div class="deck-switcher" aria-label="Page switcher">
-  <a href="pitch_deck.html" class="btn-secondary">Pitch Deck</a>
+  <a href="index.html" class="btn-secondary">Back to Site</a>
 </div>
 
 <!-- NAV -->
 <nav>
   <div class="nav-logo"><img src="pampanga_powerhouse_2.3.png" alt="Pampanga Powerhouse logo"><span>PAMPANGA <span>POWERHOUSE</span></span></div>
   <ul class="nav-links">
-    <li><a href="#overview">About</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#registration">Register</a></li>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#stats">Reach</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#registration">Registration</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#partners">Partners</a></li>
-    <li><a href="#updates">Updates</a></li>
+    <li><a href="#inkind">In-Kind</a></li>
+    <li><a href="#invited">Pro Players</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-eyebrow">Grassroots Fighting Game Community</div>
+  <div class="hero-eyebrow">PAMPANGA POWERHOUSE PRESENTS</div>
   <h1 class="hero-title" aria-label="Tekken 8">
     <img class="hero-logo" src="tekken-8-seeklogo.png" alt="Tekken 8 logo">
   </h1>
   <div class="hero-sub">Tekken 8 Tournament in Angeles City</div>
   <div class="hero-divider"></div>
   <div class="hero-meta">
-    <strong>August 8, 2026</strong>&nbsp;&nbsp;·&nbsp;&nbsp;Newpoint, Angeles City&nbsp;&nbsp;·&nbsp;&nbsp;Early Bird ₱400 / Walk-in ₱450
+    <strong>August 8, 2026</strong>&nbsp;&nbsp;·&nbsp;&nbsp;Newpoint, Angeles City&nbsp;&nbsp;·&nbsp;&nbsp;₱400 Early Bird / ₱450 Walk-in
   </div>
-  <div class="event-banner">Open to everyone · Register now through the form or QR code</div>
   <div class="hero-cta">
     <a href="https://acesse.one/r07hvw7" target="_blank" rel="noopener noreferrer" class="btn-primary">Register Now</a>
-    <a href="#events" class="btn-secondary">View Events</a>
-  </div>
- 
-    </div>
+    <a href="#registration" class="btn-secondary">View Registration</a>
   </div>
 </section>
 
@@ -1274,73 +1204,73 @@
     <div class="overview-grid">
       <div class="overview-card reveal">
           <span class="oc-icon"><i class="fa-solid fa-bolt"></i></span>
-        <div class="oc-title">What This Is</div>
-        <p class="oc-text">A one-day Tekken 8 tournament built to bring local players together in a competitive but welcoming environment.</p>
+        <div class="oc-title">Eligibility</div>
+        <p class="oc-text">Open to everyone. Beginners and experienced players are both welcome to join.</p>
       </div>
       <div class="overview-card reveal">
           <span class="oc-icon"><i class="fa-solid fa-trophy"></i></span>
-        <div class="oc-title">How to Join</div>
-        <p class="oc-text">Register through the form, scan the QR code, and check in on-site during the registration window on August 8.</p>
+        <div class="oc-title">Registration</div>
+        <p class="oc-text">Early Bird registration is ₱400 and Walk-in registration is ₱450. Both include a tournament slot, 1 raffle entry, and a Player ID.</p>
       </div>
       <div class="overview-card reveal">
           <span class="oc-icon"><i class="fa-solid fa-location-dot"></i></span>
-        <div class="oc-title">What to Expect</div>
-        <p class="oc-text">Clear entry fees, an open bracket, tournament rules, controller guidelines, and a well-organized community event flow.</p>
+        <div class="oc-title">Schedule</div>
+        <p class="oc-text">Early Bird / Pre-Registered: August 8, 10:00 AM to 11:30 AM. Walk-ins: August 8, 11:00 AM to 11:30 AM. No advance payment is required.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- STATS -->
-<section id="events" class="stats-bg">
+<section id="stats" class="stats-bg">
   <div class="section-inner" style="padding-bottom: 0; padding-top: 80px;">
-    <div class="section-label reveal">Tournament at a Glance</div>
-    <h2 class="section-title reveal">WHAT PLAYERS <em>NEED TO KNOW</em></h2>
-    <p class="section-desc reveal">Everything important is surfaced up front so players can understand the event in seconds: who can join, how much it costs, when to register, and how the format works.</p>
+    <div class="section-label reveal">Tournament Format</div>
+    <h2 class="section-title reveal">DOUBLE ELIMINATION<br><em>BEST OF 3</em> UNTIL TOP 8</h2>
+    <p class="section-desc reveal">The event uses double elimination, best of 3 during elimination rounds, and best of 5 for Top 8. Tournament settings follow the event default setup for competitive consistency.</p>
   </div>
   <div class="stats-row reveal">
     <div class="stat-cell">
       <div class="stat-num">OPEN<span></span></div>
-      <div class="stat-label">Open to Everyone</div>
-      <div class="stat-sub">Beginners and experienced players welcome</div>
+      <div class="stat-label">Eligibility</div>
+      <div class="stat-sub">Open to everyone</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num">LOCAL<span></span></div>
-      <div class="stat-label">Early Bird Fee</div>
-      <div class="stat-sub">₱400 with raffle entry and Player ID</div>
+      <div class="stat-num">₱<span>400</span></div>
+      <div class="stat-label">Early Bird</div>
+      <div class="stat-sub">Registration fee on-site</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num">LIVE<span></span></div>
-      <div class="stat-label">Walk-in Fee</div>
-      <div class="stat-sub">₱450 subject to slot availability</div>
+      <div class="stat-num">₱<span>450</span></div>
+      <div class="stat-label">Walk-in</div>
+      <div class="stat-sub">Subject to slot availability</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num">NOW<span></span></div>
-      <div class="stat-label">Entry Date</div>
-      <div class="stat-sub">August 8 with on-site payment</div>
+      <div class="stat-num">60<span>s</span></div>
+      <div class="stat-label">Timer</div>
+      <div class="stat-sub">Tournament default settings</div>
     </div>
   </div>
 </section>
 
-<!-- EVENTS -->
-<section id="tournaments" class="packages-bg">
+<!-- PACKAGES -->
+<section id="packages" class="packages-bg">
   <div class="section-inner">
-    <div class="section-label reveal">Tournament Details</div>
-    <h2 class="section-title reveal">ENTRY FEES, FORMAT,<br>AND <em>REGISTRATION</em></h2>
-    <p class="section-desc reveal">This section keeps the event essentials visible without forcing players to hunt through paragraphs.</p>
+    <div class="section-label reveal">Tournament Breakdown</div>
+    <h2 class="section-title reveal">ENTRY FEES <em>AND</em> SUPPORT</h2>
+    <p class="section-desc reveal">The event details are split into clean cards so players can scan eligibility, pricing, and support information quickly.</p>
 
     <div class="inkind-banner reveal">
       <span class="star">⭐</span>
-      <div><strong>Register early.</strong> Early Bird and walk-in slots are both on-site on August 8, with the Google Form and QR code ready for quick sign-up.</div>
+      <div><strong>Community support welcome.</strong> Products, services, and console lending are all appreciated and help keep the event strong.</div>
     </div>
 
     <div class="packages-grid">
-      <!-- FEATURED -->
+      <!-- MAIN -->
       <div class="package-card featured reveal">
         <div class="pkg-tier main">Eligibility</div>
         <div class="pkg-name">OPEN TO ALL</div>
         <div class="pkg-sub">Everyone is welcome</div>
-        <div class="pkg-price">WELCOME</div>
+        <div class="pkg-price">OPEN</div>
         <div class="pkg-price-note">Beginners and veterans can join</div>
         <div class="pkg-divider"></div>
         <ul class="pkg-perks">
@@ -1352,7 +1282,7 @@
         </ul>
       </div>
 
-      <!-- SECOND -->
+      <!-- GOLD -->
       <div class="package-card reveal">
         <div class="pkg-tier gold">Registration</div>
         <div class="pkg-name">EARLY BIRD</div>
@@ -1369,7 +1299,7 @@
         </ul>
       </div>
 
-      <!-- THIRD -->
+      <!-- SILVER -->
       <div class="package-card reveal">
         <div class="pkg-tier silver">Registration</div>
         <div class="pkg-name">WALK-IN</div>
@@ -1392,30 +1322,26 @@
 <!-- BENEFITS TABLE -->
 <section class="benefits-bg">
   <div class="section-inner">
-    <div class="section-label reveal">Rules & Settings</div>
-    <h2 class="section-title reveal">MATCH <em>GUIDELINES</em></h2>
+    <div class="section-label reveal">At a Glance</div>
+    <h2 class="section-title reveal">ENTRY <em>COMPARISON</em></h2>
 
     <div class="b-table-wrap reveal">
       <table class="b-table">
         <thead>
           <tr>
-            <th>Topic</th>
-            <th class="col-main">Rule</th>
-            <th class="col-gold">Rule</th>
-            <th class="col-silver">Rule</th>
+            <th>Item</th>
+            <th class="col-main">Early Bird</th>
+            <th class="col-gold">Walk-in</th>
+            <th class="col-silver">Both</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Attendance</td><td><span class="check">Report within 10 minutes</span></td><td><span class="check">or forfeit</span></td><td><span class="dash">—</span></td></tr>
-          <tr><td>Character Selection</td><td><span class="val val-gold">Winner keeps same character</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
-          <tr><td>Stage Selection</td><td><span class="val val-gold">Always random</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
-          <tr><td>Double K.O.</td><td><span class="check">Replay</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
-          <tr><td>Controller Disconnects</td><td><span class="check">Resume same round if possible</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
-          <tr><td>Electronics</td><td><span class="check">No phones or devices during matches</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
-          <tr><td>Coaching</td><td><span class="check">1 coach per player after losing a set</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
-          <tr><td>Controller Rules</td><td><span class="check">Bring your own controller and cable</span></td><td><span class="check">PS5-compatible or adapter</span></td><td><span class="check">Disconnect after each match</span></td></tr>
-          <tr><td>Macros</td><td><span class="val val-gold">Prohibited</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
-          <tr><td>Tournament Settings</td><td><span class="check">Versus Mode, Bo3, 60-second timer</span></td><td><span class="check">Random stage</span></td><td><span class="check">Special Style Allowed</span></td></tr>
+          <tr><td>Tournament participation</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+          <tr><td>1 raffle entry</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+          <tr><td>Player ID</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
+          <tr><td>Priority processing</td><td><span class="val val-gold">Yes</span></td><td><span class="dash">—</span></td><td><span class="dash">—</span></td></tr>
+          <tr><td>Subject to slot availability</td><td><span class="dash">—</span></td><td><span class="val">Yes</span></td><td><span class="dash">—</span></td></tr>
+          <tr><td>On-site payment</td><td><span class="check">✔</span></td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -1426,34 +1352,39 @@
 <section id="registration" class="registration-bg">
   <div class="section-inner">
     <div class="section-label reveal">Registration</div>
-    <h2 class="section-title reveal">SECURE YOUR <em>SLOT</em></h2>
-    <p class="section-desc reveal">Register through the form, then pay on-site during the registration window on August 8. No advance payment is required.</p>
+    <h2 class="section-title reveal">SCAN THE QR CODE OR TAP<br><em>THE REGISTRATION BUTTON</em></h2>
+    <p class="section-desc reveal">Register through the Google Form for the upcoming Pampanga Powerhouse event. Use the QR code if you're on-site, or click the button if you're on your phone or desktop.</p>
 
     <div class="reg-grid">
-      <div class="reg-card reveal reg-panel" aria-label="Tournament Registration Information">
+      <form class="reg-form reveal" aria-label="Tournament Registration Form">
         <div>
-          <div class="mini-note">Registration flow</div>
-          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.08em;line-height:1;margin-top:8px;">Simple, on-site process</h3>
+          <label for="reg-name">Full Name</label>
+          <input id="reg-name" name="name" type="text" placeholder="Your full name" required>
         </div>
-        <ul class="reg-list">
-          <li>Fill out the Google Form or scan the QR code.</li>
-          <li>Early Bird: August 8, 10:00 AM - 11:30 AM.</li>
-          <li>Walk-ins: August 8, 11:00 AM - 11:30 AM.</li>
-          <li>Payment is collected on-site only.</li>
-        </ul>
-        <a href="https://acesse.one/r07hvw7" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;width:fit-content;">Register Now</a>
-        <p class="reg-helper">Early Bird is ₱400. Walk-in is ₱450. Both include a tournament slot, 1 raffle entry, and a Player ID.</p>
-      </div>
-      <div class="reg-form reveal" aria-label="QR Code Registration">
-        <div class="reg-cta-box">
-          <div class="mini-note">Scan to register</div>
-          <div class="qr-card" style="max-width:260px;">
-            <img src="qr.png" alt="QR code linking to tournament registration form">
-          </div>
-          <h3>Use the QR code or the button above</h3>
-          <p>Both routes lead to the same registration form for the Tekken 8 tournament on August 8.</p>
+        <div>
+          <label for="reg-gamertag">Gamertag</label>
+          <input id="reg-gamertag" name="gamertag" type="text" placeholder="Your Tekken tag" required>
         </div>
-      </div>
+        <div>
+          <label for="reg-email">Email</label>
+          <input id="reg-email" name="email" type="email" placeholder="you@example.com" required>
+        </div>
+        <div>
+          <label for="reg-package">Sponsor Package (Optional)</label>
+          <select id="reg-package" name="package">
+            <option value="">No sponsor package selected</option>
+            <option value="gold">Gold - ₱5,000</option>
+            <option value="silver">Silver - ₱3,000</option>
+            <option value="bronze">Bronze - ₱2,000</option>
+          </select>
+        </div>
+        <div>
+          <label for="reg-note">Notes</label>
+          <textarea id="reg-note" name="notes" placeholder="Tell us if you are joining as a competitor, sponsor, or both."></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Register Now</button>
+        <p class="reg-helper">By registering, you acknowledge the updated event location at Newpoint, Angeles City.</p>
+      </form>
     </div>
   </div>
 </section>
@@ -1465,90 +1396,90 @@
     <h2 class="section-title reveal">EVENT <em>FAQ</em></h2>
     <div class="faq-grid">
       <article class="faq-item reveal">
-        <h3 class="faq-q">What is Pampanga Powerhouse?</h3>
-        <p class="faq-a">Pampanga Powerhouse is a grassroots community of fighting game players based in Angeles City, Pampanga.</p>
+        <h3 class="faq-q">Where is the tournament venue?</h3>
+        <p class="faq-a">The event will be held at Newpoint, Angeles City on Saturday, 8 August 2026, starting at 12:00 PM.</p>
       </article>
       <article class="faq-item reveal">
-        <h3 class="faq-q">How do I register?</h3>
-        <p class="faq-a">Click the Register Now button or scan the QR code on this page to open the Google Form.</p>
+        <h3 class="faq-q">Who can join the tournament?</h3>
+        <p class="faq-a">The tournament is open to everyone, including experienced competitors and first-time players.</p>
       </article>
       <article class="faq-item reveal">
-        <h3 class="faq-q">What should I bring?</h3>
-        <p class="faq-a">Bring your controller, cable, and any required adapter. Controllers will be disconnected after each match.</p>
+        <h3 class="faq-q">What are the registration fees?</h3>
+        <p class="faq-a">Early Bird registration is ₱400 and Walk-in registration is ₱450. Both include a tournament slot, 1 raffle entry, and a Player ID.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- PARTNERS -->
-<section id="partners" class="inkind-bg">
+<!-- IN-KIND -->
+<section id="inkind" class="inkind-bg">
   <div class="section-inner">
-    <div class="section-label reveal">Partners & Support</div>
-    <h2 class="section-title reveal">COMMUNITY <em>PARTNERS</em> AND SUPPORT</h2>
-    <p class="section-desc reveal">We work with local partners, venue hosts, volunteers, and content contributors who help keep the Pampanga fighting game scene active and welcoming.</p>
+    <div class="section-label reveal">Community Support</div>
+    <h2 class="section-title reveal">CASH NOT REQUIRED —<br><em>WE WELCOME</em> SUPPORT</h2>
+    <p class="section-desc reveal">Products, services, and console loans are all appreciated and help keep the event strong.</p>
 
     <div class="inkind-grid">
       <div class="inkind-item reveal">
         <span class="inkind-icon"><i class="fa-solid fa-gamepad"></i></span>
-        <div class="inkind-name">Venue Partners</div>
-        <p class="inkind-desc">Spaces and event partners that help us host fair, accessible tournaments for the community.</p>
+        <div class="inkind-name">Console Lending</div>
+        <p class="inkind-desc">Lend a PS5 or gaming PC to help power the event setup.</p>
       </div>
       <div class="inkind-item reveal">
         <span class="inkind-icon"><i class="fa-solid fa-bag-shopping"></i></span>
-        <div class="inkind-name">Local Shops</div>
-        <p class="inkind-desc">Community businesses that support players through prizes, merch, food, and event-day needs.</p>
+        <div class="inkind-name">Products & Merch</div>
+        <p class="inkind-desc">Donate products, merchandise, or gift packs for giveaways and prizes.</p>
       </div>
       <div class="inkind-item reveal">
         <span class="inkind-icon"><i class="fa-solid fa-utensils"></i></span>
-        <div class="inkind-name">Volunteer Staff</div>
-        <p class="inkind-desc">Bracket runners, stream helpers, and event staff who keep tournaments organized and on schedule.</p>
+        <div class="inkind-name">Food & Drinks</div>
+        <p class="inkind-desc">Provide meals, snacks, or drinks for challengers and staff.</p>
       </div>
       <div class="inkind-item reveal">
         <span class="inkind-icon"><i class="fa-solid fa-gift"></i></span>
-        <div class="inkind-name">Prize Support</div>
-        <p class="inkind-desc">Cash, vouchers, and items that help reward tournament participation and top placements.</p>
+        <div class="inkind-name">Prizes & Vouchers</div>
+        <p class="inkind-desc">Contribute prize items, gift vouchers, or discount codes.</p>
       </div>
       <div class="inkind-item reveal">
         <span class="inkind-icon"><i class="fa-solid fa-print"></i></span>
-        <div class="inkind-name">Media Partners</div>
-        <p class="inkind-desc">Photographers, editors, and stream partners who help share the best moments from each event.</p>
+        <div class="inkind-name">Print Services</div>
+        <p class="inkind-desc">Sponsor banners, tarpaulins, or event print materials.</p>
       </div>
       <div class="inkind-item reveal">
         <span class="inkind-icon"><i class="fa-solid fa-lightbulb"></i></span>
-        <div class="inkind-name">Community Ideas</div>
-        <p class="inkind-desc">Suggestions for events, collaborations, and new initiatives that strengthen the local scene.</p>
+        <div class="inkind-name">Other Services</div>
+        <p class="inkind-desc">Lighting, photography, AV gear, or any service that helps the event run.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- UPDATES -->
-<section id="updates" class="invited-bg">
+<!-- INVITED PRO PLAYERS & CONTENT CREATORS -->
+<section id="invited" class="invited-bg">
   <div class="section-inner">
-    <div class="section-label reveal">Rules & Settings</div>
-    <h2 class="section-title reveal">MATCH <em>RULES</em> AND SETUP</h2>
-    <p class="section-desc reveal">Use this section to scan the key rules, controller guidelines, coaching limits, and tournament settings at a glance.</p>
+    <div class="section-label reveal">Community Stars</div>
+    <h2 class="section-title reveal">COMMUNITY <em>HIGHLIGHTS</em></h2>
+    <p class="section-desc reveal">Community guests, local players, and tournament participants help build the atmosphere around the main event. This space can be used for featured players, commentators, or community highlights.</p>
 
     <div class="invited-grid">
       <div class="invited-card reveal">
         <span class="invited-icon"><i class="fa-solid fa-trophy"></i></span>
-        <div class="invited-name">Attendance</div>
-        <div class="invited-role">10-minute check-in</div>
+        <div class="invited-name">Tournament Players</div>
+        <div class="invited-role">Open Division</div>
       </div>
       <div class="invited-card reveal">
         <span class="invited-icon"><i class="fa-solid fa-video"></i></span>
-        <div class="invited-name">Coaching</div>
-        <div class="invited-role">1 session per match</div>
+        <div class="invited-name">Featured Guests</div>
+        <div class="invited-role">Community Visitors</div>
       </div>
       <div class="invited-card reveal">
         <span class="invited-icon"><i class="fa-solid fa-microphone"></i></span>
-        <div class="invited-name">Controllers</div>
-        <div class="invited-role">Bring your own setup</div>
+        <div class="invited-name">Commentary</div>
+        <div class="invited-role">Live Desk</div>
       </div>
       <div class="invited-card reveal">
         <span class="invited-icon"><i class="fa-solid fa-star"></i></span>
-        <div class="invited-name">Settings</div>
-        <div class="invited-role">Bo3 and Bo5 Top 8</div>
+        <div class="invited-name">Community Support</div>
+        <div class="invited-role">Local Scene</div>
       </div>
     </div>
   </div>
@@ -1557,7 +1488,7 @@
 <!-- EVENT DETAILS -->
 <section class="details-bg">
   <div class="section-inner">
-    <div class="section-label reveal">Tournament Summary</div>
+    <div class="section-label reveal">Event Details</div>
     <h2 class="section-title reveal">THE <em>BASICS</em></h2>
     <table class="details-table reveal">
       <tr><td><span><i class="fa-solid fa-calendar-days detail-icon"></i>Date</span></td><td class="highlight">August 8, 2026</td></tr>
@@ -1573,7 +1504,7 @@
 <!-- CTA -->
 <section id="contact" class="cta-section">
   <div class="section-inner">
-    <div class="cta-bg-text">POWERHOUSE</div>
+    <div class="cta-bg-text">TEKKEN</div>
     <div class="cta-content">
       <div class="glitch-badge reveal">Tournament Information</div>
       <h2 class="cta-title reveal">
@@ -1587,7 +1518,7 @@
       <div class="hero-cta reveal">
         <a href="https://acesse.one/r07hvw7" target="_blank" rel="noopener noreferrer" class="btn-primary">Register Now</a>
         <a href="mailto:pampangapowerhouse0@gmail.com" class="btn-secondary">Email Us</a>
-        <a href="tel:+639177564883" class="btn-secondary">Call Us</a>
+        <a href="tel:+639177564883" class="btn-secondary">Call Now</a>
       </div>
       <div class="cta-contacts reveal">
         <div class="contact-item">
@@ -1608,7 +1539,7 @@
 </section>
 
 <footer>
-  © 2026 Pampanga Powerhouse · Grassroots Tekken 8 Event in Angeles City · All Rights Reserved
+  © 2026 Pampanga Powerhouse · Tekken 8 Event in Angeles City · All Rights Reserved
 </footer>
 
 <script>
