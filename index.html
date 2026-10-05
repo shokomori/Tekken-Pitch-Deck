@@ -46,6 +46,15 @@
       outline-offset: 4px;
     }
     .wrap { width: min(var(--max), calc(100% - 56px)); margin-inline: auto; }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      clip-path: inset(50%);
+    }
     .display, h1, h2, h3 { font-family: "Barlow Condensed", sans-serif; }
 
     .topbar {
@@ -101,6 +110,8 @@
     }
     .nav-list a:hover, .nav-list a:focus-visible { color: var(--paper); }
     .nav-list a:hover::after, .nav-list a:focus-visible::after { right: 0; }
+    .nav-list a[aria-current="location"] { color: var(--paper); }
+    .nav-list a[aria-current="location"]::after { right: 0; }
     .nav-contact {
       color: var(--lavender) !important;
     }
@@ -125,7 +136,8 @@
     .hero::before {
       z-index: -2;
       background: url("Community%20Photos/EVENT.jpg") center 38% / cover no-repeat;
-      transform: scale(1.015);
+      transform: translate3d(0, var(--hero-shift, 0px), 0) scale(1.045);
+      will-change: transform;
     }
     .hero::after {
       background:
@@ -140,7 +152,14 @@
       background: radial-gradient(ellipse at 5% 76%, rgba(124, 58, 237, 0.30), transparent 47%);
       mix-blend-mode: screen;
     }
-    .hero-inner { padding-block: clamp(88px, 13vh, 142px) 108px; }
+    .hero-inner {
+      padding-block: clamp(88px, 13vh, 142px) 108px;
+      animation: hero-arrive 760ms cubic-bezier(.2,.7,.2,1) both;
+    }
+    @keyframes hero-arrive {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .overline, .micro-label {
       margin: 0;
       color: var(--lavender);
@@ -229,18 +248,41 @@
     .ticker-track {
       width: max-content;
       display: flex;
-      align-items: center;
-      gap: 28px;
-      padding: 13px 0;
+      align-items: stretch;
       color: var(--paper);
       font-family: "Barlow Condensed", sans-serif;
       font-size: 0.77rem;
       font-weight: 700;
       letter-spacing: 0.19em;
       text-transform: uppercase;
+      animation: ticker-scroll 34s linear infinite;
     }
-    .ticker-track span { display: inline-flex; align-items: center; gap: 28px; }
-    .ticker-track span::after { color: var(--lavender); content: "✳"; font-size: 0.75rem; }
+    .ticker-group {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 28px;
+      padding: 13px 28px 13px 0;
+    }
+    .ticker-group span { display: inline-flex; align-items: center; gap: 28px; white-space: nowrap; }
+    .ticker-group span::after {
+      width: 6px;
+      height: 6px;
+      display: inline-block;
+      border: 1px solid var(--lavender);
+      content: "";
+      transform: rotate(45deg);
+    }
+    @keyframes ticker-scroll { to { transform: translateX(-50%); } }
+    .ticker:hover .ticker-track { animation-play-state: paused; }
+
+    .motion-ready [data-reveal] {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 650ms cubic-bezier(.2,.7,.2,1), transform 650ms cubic-bezier(.2,.7,.2,1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .motion-ready [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
 
     .section { padding-block: clamp(76px, 10vw, 136px); }
     .section-dark { background: var(--ink); }
@@ -280,9 +322,10 @@
     .identity-copy .section-head { margin-bottom: 20px; }
     .identity-copy > p { max-width: 560px; margin-bottom: 26px; color: var(--muted); }
     .identity-note {
+      position: relative;
       display: flex;
       align-items: baseline;
-      gap: 12px;
+      gap: 17px;
       padding-top: 18px;
       border-top: 1px solid var(--line);
       color: var(--lavender);
@@ -292,7 +335,14 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
-    .identity-note span { color: var(--violet); font-size: 1.35rem; }
+    .identity-note::before {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 8px;
+      border: 1px solid var(--violet);
+      content: "";
+      transform: rotate(45deg);
+    }
     .identity-photo {
       position: relative;
       aspect-ratio: 1.42;
@@ -542,6 +592,33 @@
       text-transform: uppercase;
     }
     .archive-copy p:not(.archive-label) { margin: 17px 0; color: var(--muted); }
+    .event-data {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+      margin: 22px 0;
+      padding-block: 15px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .event-data dt {
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: .64rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .event-data dd {
+      margin: 0;
+      color: var(--paper);
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: .92rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
     .archive-link {
       display: inline-flex;
       align-items: center;
@@ -554,8 +631,11 @@
       font-weight: 700;
       letter-spacing: .14em;
       text-transform: uppercase;
+      transition: color 180ms ease, border-color 180ms ease;
     }
     .archive-link:hover { color: var(--violet); }
+    .archive-actions { display: flex; flex-wrap: wrap; gap: 12px 22px; }
+    .archive-actions .archive-link + .archive-link { border-bottom-color: transparent; }
 
     .next-up {
       display: grid;
@@ -565,7 +645,9 @@
       padding-block: 29px;
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
+      transition: border-color 200ms ease;
     }
+    .next-up:hover { border-color: rgba(168, 85, 247, .55); }
     .next-up .micro-label { color: var(--violet); }
     .next-up h3 {
       margin: 3px 0 0;
@@ -685,8 +767,10 @@
       text-transform: uppercase;
     }
     .contact-band p:not(.micro-label) { max-width: 480px; margin: 16px 0 0; color: rgba(245,240,248,.82); }
-    .contact-band .button { flex: 0 0 auto; border-color: rgba(245, 240, 248, 0.55); }
-    .contact-band .button:hover { border-color: var(--paper); background: rgba(245,240,248,.1); }
+    .contact-actions { display: flex; flex: 0 0 auto; flex-wrap: wrap; gap: 10px; }
+    .contact-band .button:not(.button-primary) { border-color: rgba(245, 240, 248, 0.55); }
+    .contact-band .button:not(.button-primary):hover { border-color: var(--paper); background: rgba(245,240,248,.1); }
+    .contact-band .button-primary { border-color: transparent; }
 
     .footer {
       border-top: 1px solid var(--faint);
@@ -698,6 +782,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 24px;
+      flex-wrap: wrap;
       padding-block: 20px;
     }
     .footer-brand img { width: 165px; height: auto; filter: hue-rotate(270deg) saturate(0.92); }
@@ -714,6 +799,19 @@
       text-transform: uppercase;
     }
     .footer-meta a:hover { color: var(--lavender); }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      color: var(--muted);
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .footer-links a { transition: color 180ms ease; }
+    .footer-links a:hover { color: var(--lavender); }
 
     .lightbox {
       width: min(1100px, calc(100% - 30px));
@@ -783,6 +881,7 @@
       .feature-images { order: 2; max-width: 760px; }
       .next-up { grid-template-columns: 0.75fr 1.25fr; }
       .next-up .button { grid-column: 2; justify-self: start; }
+      .event-data { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .gallery-masonry { grid-template-rows: 190px 145px 190px 145px; }
     }
     @media (max-width: 640px) {
@@ -792,14 +891,14 @@
       .brand img { width: 147px; }
       .nav-list {
         width: 100%;
-        justify-content: flex-start;
-        gap: 21px;
+        justify-content: space-between;
+        gap: clamp(4px, 1.6vw, 8px);
         overflow-x: auto;
         padding: 0 0 1px;
         scrollbar-width: none;
       }
       .nav-list::-webkit-scrollbar { display: none; }
-      .nav-list a { padding-block: 6px; white-space: nowrap; font-size: 0.7rem; }
+      .nav-list a { padding-block: 6px; white-space: nowrap; font-size: 0.62rem; letter-spacing: .08em; }
       .hero { min-height: 730px; min-height: min(780px, calc(100svh - 97px)); }
       .hero::before { background-position: 53% center; }
       .hero::after {
@@ -814,8 +913,9 @@
       .hero-actions { max-width: 340px; }
       .hero-actions .button { flex: 1 1 100%; }
       .hero-index { right: 16px; bottom: 15px; font-size: .61rem; }
-      .ticker-track { gap: 18px; font-size: .68rem; }
-      .ticker-track span { gap: 18px; }
+      .ticker-track { font-size: .68rem; }
+      .ticker-group { gap: 18px; padding-right: 18px; }
+      .ticker-group span { gap: 18px; }
       .section { padding-block: 76px; }
       .section-title { font-size: clamp(3.3rem, 14vw, 5.2rem); }
       .split-heading { grid-template-columns: 1fr; gap: 15px; }
@@ -830,6 +930,9 @@
       }
       .people-photo.tall { grid-column: span 2; grid-row: auto; }
       .archive-entry { grid-template-columns: 1fr; gap: 21px; padding-bottom: 31px; }
+      .event-data { gap: 8px; }
+      .event-data dd { font-size: .82rem; }
+      .archive-actions { gap: 12px 16px; }
       .feature-layout { gap: 23px; }
       .feature-copy .section-title { font-size: clamp(3.2rem, 13vw, 5rem); }
       .feature-images {
@@ -859,16 +962,26 @@
       .gallery-item::after { opacity: 1; }
       .contact-layout { align-items: flex-start; flex-direction: column; gap: 22px; }
       .contact-band h2 { font-size: clamp(3.5rem, 14vw, 5.4rem); }
-      .contact-band .button { width: 100%; }
+      .contact-actions { width: 100%; }
+      .contact-actions .button { flex: 1 1 100%; }
       .footer-inner { align-items: flex-start; flex-direction: column; gap: 15px; }
       .footer-meta { justify-content: flex-start; }
+      .footer-links { gap: 9px 14px; }
       .lightbox-frame { height: min(76vh, 700px); }
       .lightbox-arrow { width: 38px; height: 48px; }
       .lightbox-prev { left: 7px; }
       .lightbox-next { right: 7px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .ticker-track { animation: none; }
+      .motion-ready [data-reveal] { opacity: 1; transform: none; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
@@ -879,6 +992,7 @@
         <img src="pampanga_powerhouse_2.3.png" alt="Pampanga Powerhouse">
       </a>
       <ul class="nav-list">
+        <li><a href="#home">Home</a></li>
         <li><a href="#community">Community</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#archive">Archive</a></li>
@@ -904,24 +1018,30 @@
       <div class="hero-index" aria-hidden="true">Local scene / Pampanga</div>
     </section>
 
-    <div class="ticker" aria-label="Competition, community, local pride">
+    <p class="visually-hidden">Pampanga Powerhouse: competition, community, local pride. Built in Pampanga, built for the fight.</p>
+    <div class="ticker" aria-hidden="true">
       <div class="ticker-track" aria-hidden="true">
-        <span>Competition</span><span>Community</span><span>Local pride</span><span>Set by set</span><span>Competition</span><span>Community</span><span>Local pride</span><span>Set by set</span>
+        <div class="ticker-group">
+          <span>Competition</span><span>Community</span><span>Local pride</span><span>Built in Pampanga</span><span>Built for the fight</span>
+        </div>
+        <div class="ticker-group">
+          <span>Competition</span><span>Community</span><span>Local pride</span><span>Built in Pampanga</span><span>Built for the fight</span>
+        </div>
       </div>
     </div>
 
     <section class="section section-dark identity" id="community">
       <div class="wrap identity-layout">
-        <div class="identity-copy">
+        <div class="identity-copy" data-reveal>
           <div class="section-head">
             <p class="micro-label">01 / The local home of the FGC</p>
             <h2 class="section-title">This is<br><em>Powerhouse.</em></h2>
           </div>
           <p>Big-event energy, right here at home. Pampanga Powerhouse brings local fighting-game players together to compete, cheer each other on, and grow the scene—one gathering and one set at a time.</p>
           <p>Not a copy of anyone else. This is Pampanga’s own corner of the FGC: grassroots, competitive, and built around the people who show up.</p>
-          <div class="identity-note"><span aria-hidden="true">✳</span> The FGC, closer to home.</div>
+          <div class="identity-note" data-reveal>The FGC, closer to home.</div>
         </div>
-        <figure class="identity-photo">
+        <figure class="identity-photo" data-reveal>
           <button type="button" class="photo-trigger" data-caption="Organizers and cosplayers sharing the day" aria-label="View photo: Organizers and cosplayers sharing the day">
             <img src="Community%20Photos/organizer%20with%20cosplayers.jpg" alt="Organizers and cosplayers together at a Powerhouse gathering" loading="lazy">
           </button>
@@ -940,31 +1060,31 @@
           <p class="section-intro">Players lean in. Friends hold the front row. Organizers keep the rounds moving. The community is not around the event—it is the event.</p>
         </div>
         <div class="people-layout">
-          <figure class="people-photo tall">
+          <figure class="people-photo tall" data-reveal>
             <button type="button" class="photo-trigger" data-caption="Players close to the action at a Powerhouse gathering" aria-label="View photo: Players close to the action at a Powerhouse gathering">
               <img src="Community%20Photos/players%20(2).jpg" alt="Player seated at a fighting game setup" loading="lazy">
             </button>
             <figcaption class="photo-label">At the setup</figcaption>
           </figure>
-          <figure class="people-photo">
+          <figure class="people-photo" data-reveal>
             <button type="button" class="photo-trigger" data-caption="Players watching a match together" aria-label="View photo: Players watching a match together">
               <img src="Community%20Photos/players.jpg" alt="Players seated together and watching a match" loading="lazy">
             </button>
             <figcaption class="photo-label">The match</figcaption>
           </figure>
-          <figure class="people-photo">
+          <figure class="people-photo" data-reveal>
             <button type="button" class="photo-trigger" data-caption="A tournament setup with the crowd close by" aria-label="View photo: A tournament setup with the crowd close by">
               <img src="Community%20Photos/crowd%20(2).jpg" alt="Gaming monitor and setup surrounded by event attendees" loading="lazy">
             </button>
             <figcaption class="photo-label">The setup</figcaption>
           </figure>
-          <figure class="people-photo">
+          <figure class="people-photo" data-reveal>
             <button type="button" class="photo-trigger" data-caption="An organizer helping run the event" aria-label="View photo: An organizer helping run the event">
               <img src="Community%20Photos/organizer%203.jpg" alt="Organizer leaning in to help during a game" loading="lazy">
             </button>
             <figcaption class="photo-label">Behind the bracket</figcaption>
           </figure>
-          <figure class="people-photo">
+          <figure class="people-photo" data-reveal>
             <button type="button" class="photo-trigger" data-caption="Community members and organizers between matches" aria-label="View photo: Community members and organizers between matches">
               <img src="Community%20Photos/organizers%202.jpg" alt="Two community members talking at the venue" loading="lazy">
             </button>
@@ -976,26 +1096,26 @@
 
     <section class="section feature" id="events">
       <div class="wrap feature-layout">
-        <div class="feature-copy">
+        <div class="feature-copy" data-reveal>
           <p class="micro-label">03 / Community event spotlight</p>
           <h2 class="section-title">Made of<br><em>moments.</em></h2>
           <p>A room full of players, a crowd around the setup, a host on the mic, and the people who made the day happen. A glimpse into a Powerhouse gathering—without guessing at its date or results.</p>
           <a class="button button-primary" href="#archive">Explore the archive <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="feature-images" aria-label="Photo highlights from a Powerhouse gathering">
-          <figure class="editorial-image primary">
+          <figure class="editorial-image primary" data-reveal>
             <button type="button" class="photo-trigger" data-caption="The community together at a Powerhouse event" aria-label="View photo: The community together at a Powerhouse event">
               <img src="Community%20Photos/EVENT.jpg" alt="Wide group portrait at a Pampanga Powerhouse event" loading="lazy">
             </button>
             <figcaption class="event-caption">The people make the event</figcaption>
           </figure>
-          <figure class="editorial-image">
+          <figure class="editorial-image" data-reveal>
             <button type="button" class="photo-trigger" data-caption="The host keeping the event moving" aria-label="View photo: The host keeping the event moving">
               <img src="Community%20Photos/host.jpg" alt="Event host speaking with attendees" loading="lazy">
             </button>
             <figcaption class="event-caption">On the mic</figcaption>
           </figure>
-          <figure class="editorial-image">
+          <figure class="editorial-image" data-reveal>
             <button type="button" class="photo-trigger" data-caption="A winner pictured with fellow players" aria-label="View photo: A winner pictured with fellow players">
               <img src="Community%20Photos/winner.jpg" alt="Winner pictured with fellow players after a tournament" loading="lazy">
             </button>
@@ -1014,7 +1134,7 @@
           </div>
           <p class="section-intro">Every gathering adds another chapter: the long sets, new faces, friends in the crowd, and the work behind the bracket. The moments here are part of that record.</p>
         </div>
-        <article class="archive-entry">
+        <article class="archive-entry" data-reveal>
           <figure class="archive-photo">
             <button type="button" class="photo-trigger" data-caption="Community members pictured at a Powerhouse gathering" aria-label="View photo: Community members pictured at a Powerhouse gathering">
               <img src="Community%20Photos/Organizers.jpg" alt="Players and organizers together at a Powerhouse gathering" loading="lazy">
@@ -1022,19 +1142,27 @@
             <figcaption>People behind the scene</figcaption>
           </figure>
           <div class="archive-copy">
-            <p class="archive-label">Archive file / Community gathering</p>
-            <h3>Built set<br>by set.</h3>
-            <p>Faces from a Powerhouse gathering—players, organizers, and friends in the same frame. Event dates and results aren’t attached where they haven’t been confirmed.</p>
-            <a class="archive-link" href="#gallery">Browse the photo record <span aria-hidden="true">→</span></a>
+            <p class="archive-label">From the archive / August 2026</p>
+            <h3>Tekken 8<br>tournament.</h3>
+            <p>The August 8, 2026 Tekken 8 tournament is part of the Powerhouse story. Explore the event information and revisit the people who make the local scene.</p>
+            <dl class="event-data">
+              <div><dt>Game</dt><dd>Tekken 8</dd></div>
+              <div><dt>Date</dt><dd>Aug 8, 2026</dd></div>
+              <div><dt>Location</dt><dd>Newpoint · Angeles City</dd></div>
+            </dl>
+            <div class="archive-actions">
+              <a class="archive-link" href="PPH-Tournament-2026-Official-Rules-and-Guidelines.pdf" target="_blank" rel="noopener noreferrer">Official event rules <span aria-hidden="true">↗</span></a>
+              <a class="archive-link" href="#gallery">Browse the photo record <span aria-hidden="true">→</span></a>
+            </div>
           </div>
         </article>
-        <div class="next-up">
+        <div class="next-up" data-reveal>
           <div>
-            <p class="micro-label">Next round / Updates</p>
-            <h3>Stay in the loop.</h3>
+            <p class="micro-label">Upcoming / Event updates</p>
+            <h3>Coming soon.</h3>
           </div>
-          <p>Event dates and registration details will be shared here when they’re confirmed. Until then, get in touch to connect with the local scene.</p>
-          <a class="button button-outline" href="#contact">Get event updates <span class="arrow" aria-hidden="true">→</span></a>
+          <p>No upcoming event has been announced yet. Check back for confirmed dates, game details, and registration information.</p>
+          <a class="button button-outline" href="mailto:pampangapowerhouse0@gmail.com?subject=Powerhouse%20event%20updates">Ask about events <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -1049,27 +1177,31 @@
           <p class="section-intro">A growing photo record of the Pampanga FGC. Select a frame to see the original photograph.</p>
         </div>
         <div class="gallery-masonry" aria-label="Community photo gallery">
-          <button type="button" class="gallery-item gallery-main photo-trigger" data-caption="The community meets around the game" aria-label="View photo: The community meets around the game"><img src="Community%20Photos/cosplayer%20with%20crowd.jpg" alt="Players and cosplayers sharing a moment at the event" loading="lazy"><span class="gallery-caption">The community</span></button>
-          <button type="button" class="gallery-item gallery-a photo-trigger" data-caption="Cosplayers at a Powerhouse gathering" aria-label="View photo: Cosplayers at a Powerhouse gathering"><img src="Community%20Photos/cosplayers.jpg" alt="Cosplayers talking at the event" loading="lazy"><span class="gallery-caption">Between sets</span></button>
-          <button type="button" class="gallery-item gallery-b photo-trigger" data-caption="A setup and match in progress" aria-label="View photo: A setup and match in progress"><img src="Community%20Photos/crowd%20(2).jpg" alt="A fighting game setup with spectators nearby" loading="lazy"><span class="gallery-caption">At the setup</span></button>
-          <button type="button" class="gallery-item gallery-c photo-trigger" data-caption="Friends gather to watch a match" aria-label="View photo: Friends gather to watch a match"><img src="Community%20Photos/crowd%20(3).jpg" alt="Attendees gathered together during an event" loading="lazy"><span class="gallery-caption">The crowd</span></button>
-          <button type="button" class="gallery-item gallery-d photo-trigger" data-caption="Players watching the match" aria-label="View photo: Players watching the match"><img src="Community%20Photos/players.jpg" alt="Players seated and watching a match" loading="lazy"><span class="gallery-caption">Watching the game</span></button>
-          <button type="button" class="gallery-item gallery-e photo-trigger" data-caption="Organizers at work during the event" aria-label="View photo: Organizers at work during the event"><img src="Community%20Photos/organizer%203.jpg" alt="Organizer helping players at the event" loading="lazy"><span class="gallery-caption">Behind the bracket</span></button>
-          <button type="button" class="gallery-item gallery-f photo-trigger" data-caption="A close look at community event keepsakes" aria-label="View photo: A close look at community event keepsakes"><img src="Community%20Photos/merch.jpg" alt="Event keepsakes and merchandise on a table" loading="lazy"><span class="gallery-caption">Details from the day</span></button>
-          <button type="button" class="gallery-item gallery-g photo-trigger" data-caption="Organizers and attendees share a moment" aria-label="View photo: Organizers and attendees share a moment"><img src="Community%20Photos/organizer.jpg" alt="Organizer speaking with an attendee" loading="lazy"><span class="gallery-caption">The people who host</span></button>
-          <button type="button" class="gallery-item gallery-h photo-trigger" data-caption="Organizers talking through the event" aria-label="View photo: Organizers talking through the event"><img src="Community%20Photos/organizers%202.jpg" alt="Organizers working together at the venue" loading="lazy"><span class="gallery-caption">Making it happen</span></button>
+          <button type="button" class="gallery-item gallery-main photo-trigger" data-reveal data-caption="The community meets around the game" aria-label="View photo: The community meets around the game"><img src="Community%20Photos/cosplayer%20with%20crowd.jpg" alt="Players and cosplayers sharing a moment at the event" loading="lazy"><span class="gallery-caption">The community</span></button>
+          <button type="button" class="gallery-item gallery-a photo-trigger" data-reveal data-caption="Cosplayers at a Powerhouse gathering" aria-label="View photo: Cosplayers at a Powerhouse gathering"><img src="Community%20Photos/cosplayers.jpg" alt="Cosplayers talking at the event" loading="lazy"><span class="gallery-caption">Between sets</span></button>
+          <button type="button" class="gallery-item gallery-b photo-trigger" data-reveal data-caption="A setup and match in progress" aria-label="View photo: A setup and match in progress"><img src="Community%20Photos/crowd%20(2).jpg" alt="A fighting game setup with spectators nearby" loading="lazy"><span class="gallery-caption">At the setup</span></button>
+          <button type="button" class="gallery-item gallery-c photo-trigger" data-reveal data-caption="Friends gather to watch a match" aria-label="View photo: Friends gather to watch a match"><img src="Community%20Photos/crowd%20(3).jpg" alt="Attendees gathered together during an event" loading="lazy"><span class="gallery-caption">The crowd</span></button>
+          <button type="button" class="gallery-item gallery-d photo-trigger" data-reveal data-caption="Players watching the match" aria-label="View photo: Players watching the match"><img src="Community%20Photos/players.jpg" alt="Players seated and watching a match" loading="lazy"><span class="gallery-caption">Watching the game</span></button>
+          <button type="button" class="gallery-item gallery-e photo-trigger" data-reveal data-caption="Organizers at work during the event" aria-label="View photo: Organizers at work during the event"><img src="Community%20Photos/organizer%203.jpg" alt="Organizer helping players at the event" loading="lazy"><span class="gallery-caption">Behind the bracket</span></button>
+          <button type="button" class="gallery-item gallery-f photo-trigger" data-reveal data-caption="A close look at community event keepsakes" aria-label="View photo: A close look at community event keepsakes"><img src="Community%20Photos/merch.jpg" alt="Event keepsakes and merchandise on a table" loading="lazy"><span class="gallery-caption">Details from the day</span></button>
+          <button type="button" class="gallery-item gallery-g photo-trigger" data-reveal data-caption="Organizers and attendees share a moment" aria-label="View photo: Organizers and attendees share a moment"><img src="Community%20Photos/organizer.jpg" alt="Organizer speaking with an attendee" loading="lazy"><span class="gallery-caption">The people who host</span></button>
+          <button type="button" class="gallery-item gallery-h photo-trigger" data-reveal data-caption="Organizers talking through the event" aria-label="View photo: Organizers talking through the event"><img src="Community%20Photos/organizers%202.jpg" alt="Organizers working together at the venue" loading="lazy"><span class="gallery-caption">Making it happen</span></button>
         </div>
       </div>
     </section>
 
     <section class="contact-band" id="contact">
-      <div class="wrap contact-layout">
+      <div class="wrap contact-layout" data-reveal>
         <div>
           <p class="micro-label">06 / Your scene is here</p>
-          <h2>Find your<br>people.</h2>
-          <p>New to the FGC or already chasing your next set? Reach out to Pampanga Powerhouse and connect with the local community.</p>
+          <h2>Build the<br>scene with us.</h2>
+          <p>Whether you’re a player, venue, creator, local business, or simply want more fighting-game events in Pampanga, there’s a place for you in the scene.</p>
         </div>
-        <a class="button" href="mailto:pampangapowerhouse0@gmail.com">Say hello <span class="arrow" aria-hidden="true">↗</span></a>
+        <div class="contact-actions">
+          <a class="button button-primary" href="mailto:pampangapowerhouse0@gmail.com?subject=Join%20the%20Powerhouse%20community">Join the community <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="button" href="mailto:pampangapowerhouse0@gmail.com?subject=Partner%20with%20Powerhouse">Partner with Powerhouse <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="button" href="mailto:pampangapowerhouse0@gmail.com?subject=Contact%20Pampanga%20Powerhouse">Contact us <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
       </div>
     </section>
   </main>
@@ -1079,9 +1211,18 @@
       <a class="footer-brand" href="#home" aria-label="Pampanga Powerhouse home">
         <img src="pampanga_powerhouse_2.3.png" alt="Pampanga Powerhouse" loading="lazy">
       </a>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#home">Home</a>
+        <a href="#community">About</a>
+        <a href="#events">Events</a>
+        <a href="#archive">Archive</a>
+        <a href="#community">Community</a>
+        <a href="mailto:pampangapowerhouse0@gmail.com?subject=Partner%20with%20Powerhouse">Partners</a>
+        <a href="#contact">Contact</a>
+      </nav>
       <div class="footer-meta">
-        <span>Local players. Shared passion.</span>
-        <a href="#home">Back to top ↑</a>
+        <span>Built in Pampanga. Built for the fight.</span>
+        <span>Angeles City · Pampanga · Philippines</span>
       </div>
     </div>
   </footer>
@@ -1104,12 +1245,77 @@
   </dialog>
   <script>
     (() => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const hero = document.querySelector(".hero");
+      const navLinks = Array.from(document.querySelectorAll(".nav-list a[href^='#']"));
+
+      if (!reducedMotion.matches && "IntersectionObserver" in window) {
+        document.documentElement.classList.add("motion-ready");
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -5% 0px" });
+
+        document.querySelectorAll("[data-reveal]").forEach((element, index) => {
+          element.style.setProperty("--reveal-delay", `${Math.min(index % 5, 3) * 65}ms`);
+          revealObserver.observe(element);
+        });
+      }
+
+      if ("IntersectionObserver" in window) {
+        const sections = navLinks
+          .map((link) => document.querySelector(link.getAttribute("href")))
+          .filter(Boolean);
+        const updateActiveLink = () => {
+          const activeSection = sections
+            .filter((section) => {
+              const bounds = section.getBoundingClientRect();
+              return bounds.top < window.innerHeight * 0.55 && bounds.bottom > window.innerHeight * 0.2;
+            })
+            .sort((a, b) => {
+              const center = window.innerHeight * 0.38;
+              return Math.abs(a.getBoundingClientRect().top - center) - Math.abs(b.getBoundingClientRect().top - center);
+            })[0];
+
+          navLinks.forEach((link) => {
+            if (activeSection && link.getAttribute("href") === `#${activeSection.id}`) {
+              link.setAttribute("aria-current", "location");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          });
+        };
+        const sectionObserver = new IntersectionObserver(updateActiveLink, {
+          threshold: 0,
+          rootMargin: "-20% 0px -45% 0px"
+        });
+        sections.forEach((section) => sectionObserver.observe(section));
+        updateActiveLink();
+      }
+
+      if (!reducedMotion.matches) {
+        let parallaxFrame = 0;
+        window.addEventListener("scroll", () => {
+          if (parallaxFrame) return;
+          parallaxFrame = window.requestAnimationFrame(() => {
+            parallaxFrame = 0;
+            const heroTop = hero.getBoundingClientRect().top;
+            hero.style.setProperty("--hero-shift", `${Math.min(Math.max(-heroTop * 0.06, 0), 30)}px`);
+          });
+        }, { passive: true });
+      }
+
       const dialog = document.querySelector(".lightbox");
       const fullImage = dialog.querySelector(".lightbox-image");
       const description = dialog.querySelector(".lightbox-description");
       const count = dialog.querySelector(".lightbox-count");
+      const imageWrap = dialog.querySelector(".lightbox-image-wrap");
       const triggers = Array.from(document.querySelectorAll(".photo-trigger"));
       let activeIndex = 0;
+      let swipeStart = null;
 
       const showPhoto = (index) => {
         activeIndex = (index + triggers.length) % triggers.length;
@@ -1145,6 +1351,17 @@
         if (event.key === "ArrowLeft") showPhoto(activeIndex - 1);
         if (event.key === "ArrowRight") showPhoto(activeIndex + 1);
       });
+      imageWrap.addEventListener("pointerdown", (event) => {
+        swipeStart = event.pointerType === "touch" ? event.clientX : null;
+      });
+      imageWrap.addEventListener("pointerup", (event) => {
+        if (swipeStart === null) return;
+        const distance = event.clientX - swipeStart;
+        swipeStart = null;
+        if (Math.abs(distance) < 48) return;
+        showPhoto(activeIndex + (distance < 0 ? 1 : -1));
+      });
+      imageWrap.addEventListener("pointercancel", () => { swipeStart = null; });
     })();
   </script>
 </body>
