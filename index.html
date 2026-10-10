@@ -115,6 +115,18 @@
     .nav-contact {
       color: var(--lavender) !important;
     }
+    .nav-team {
+      color: var(--paper) !important;
+    }
+    .nav-team::before {
+      position: absolute;
+      right: 0;
+      bottom: 3px;
+      left: 0;
+      height: 1px;
+      background: var(--violet);
+      content: "";
+    }
 
     .hero {
       position: relative;
@@ -733,6 +745,157 @@
     .gallery-item:hover .gallery-caption, .gallery-item:focus-visible .gallery-caption { opacity: 1; transform: translateY(0); }
     .gallery-caption::after { color: var(--lavender); content: "↗"; font-size: 1rem; }
 
+    .recruitment {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(ellipse at 96% 8%, rgba(124, 58, 237, 0.16), transparent 36%),
+        linear-gradient(135deg, var(--ink-deep), var(--ink-soft) 62%, #160d20);
+    }
+    .recruitment::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(42vw, 540px);
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--violet));
+      content: "";
+    }
+    .recruitment-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      align-items: center;
+      gap: clamp(34px, 6vw, 82px);
+    }
+    .recruitment-copy { position: relative; z-index: 1; }
+    .recruitment-kicker {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 0 18px;
+      color: var(--lavender);
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .recruitment-kicker::before { width: 30px; height: 2px; background: var(--violet); content: ""; }
+    .recruitment-title {
+      max-width: 760px;
+      margin: 0 0 20px -4px;
+      color: var(--paper);
+      font-size: clamp(4rem, 8.2vw, 7.4rem);
+      font-weight: 900;
+      letter-spacing: -.045em;
+      line-height: .77;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    .recruitment-title span { display: block; color: var(--lavender); }
+    .recruitment-statement {
+      margin: 0 0 17px;
+      color: var(--violet);
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      font-weight: 800;
+      letter-spacing: .12em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .recruitment-description { max-width: 620px; margin: 0 0 13px; color: var(--muted); }
+    .recruitment-description + .recruitment-description { margin-bottom: 25px; }
+    .recruitment-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .recruitment-actions .button { min-height: 52px; }
+    .recruitment-visual {
+      position: relative;
+      min-height: 390px;
+      overflow: hidden;
+      background: var(--surface);
+      box-shadow: 14px 14px 0 rgba(124, 58, 237, .2);
+    }
+    .recruitment-visual img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(.8);
+      transition: transform 600ms cubic-bezier(.2,.7,.2,1);
+    }
+    .recruitment-visual:hover img { transform: scale(1.035); }
+    .recruitment-visual::after {
+      position: absolute;
+      inset: 28% 0 0;
+      background: linear-gradient(transparent, rgba(9, 6, 13, .8));
+      content: "";
+      pointer-events: none;
+    }
+    .recruitment-visual figcaption {
+      position: absolute;
+      z-index: 1;
+      right: 16px;
+      bottom: 14px;
+      left: 16px;
+      color: var(--paper);
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .recruitment-purpose {
+      display: grid;
+      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+      gap: clamp(30px, 6vw, 82px);
+      margin-top: clamp(58px, 8vw, 92px);
+      padding-top: 29px;
+      border-top: 1px solid var(--line);
+      scroll-margin-top: 110px;
+    }
+    .recruitment-purpose h3 {
+      max-width: 500px;
+      margin: 0 0 15px;
+      color: var(--paper);
+      font-size: clamp(2.35rem, 4.8vw, 4.1rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: .88;
+      text-transform: uppercase;
+    }
+    .recruitment-purpose h3 em { color: var(--lavender); font-style: normal; }
+    .recruitment-purpose-copy > p:not(.micro-label) { max-width: 510px; margin: 0 0 12px; color: var(--muted); }
+    .recruitment-purpose .micro-label { margin-bottom: 13px; color: var(--violet); }
+    .applicant-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 26px;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+      list-style: none;
+    }
+    .applicant-list li {
+      position: relative;
+      padding: 12px 0 12px 18px;
+      border-bottom: 1px solid var(--faint);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    .applicant-list li::before {
+      position: absolute;
+      top: 19px;
+      left: 1px;
+      width: 7px;
+      height: 7px;
+      border: 1px solid var(--violet);
+      content: "";
+      transform: rotate(45deg);
+    }
+
     .contact-band {
       position: relative;
       isolation: isolate;
@@ -879,6 +1042,11 @@
       .feature-layout { grid-template-columns: 1fr; }
       .feature-copy { order: 1; }
       .feature-images { order: 2; max-width: 760px; }
+      .recruitment-main { grid-template-columns: 1fr minmax(230px, .7fr); gap: 28px; }
+      .recruitment-title { font-size: clamp(3.7rem, 8vw, 5.7rem); }
+      .recruitment-visual { min-height: 340px; }
+      .recruitment-purpose { grid-template-columns: 1fr 1.25fr; gap: 28px; }
+      .applicant-list { grid-template-columns: 1fr; }
       .next-up { grid-template-columns: 0.75fr 1.25fr; }
       .next-up .button { grid-column: 2; justify-self: start; }
       .event-data { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -935,6 +1103,15 @@
       .archive-actions { gap: 12px 16px; }
       .feature-layout { gap: 23px; }
       .feature-copy .section-title { font-size: clamp(3.2rem, 13vw, 5rem); }
+      .recruitment-main { grid-template-columns: 1fr; gap: 30px; }
+      .recruitment-title { font-size: clamp(3.7rem, 14.2vw, 5.8rem); }
+      .recruitment-statement { font-size: 1rem; }
+      .recruitment-visual { min-height: 260px; margin: 0 9px 9px 0; }
+      .recruitment-actions { max-width: 390px; }
+      .recruitment-actions .button { flex: 1 1 100%; }
+      .recruitment-purpose { grid-template-columns: 1fr; gap: 25px; margin-top: 58px; padding-top: 23px; }
+      .recruitment-purpose h3 { font-size: clamp(2.7rem, 10vw, 4rem); }
+      .applicant-list { grid-template-columns: 1fr; }
       .feature-images {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 210px 130px;
@@ -997,6 +1174,7 @@
         <li><a href="#events">Events</a></li>
         <li><a href="#archive">Archive</a></li>
         <li><a href="#gallery">Photos</a></li>
+        <li><a class="nav-team" href="#recruitment">Join the team</a></li>
         <li><a class="nav-contact" href="#contact">Get involved <span aria-hidden="true">↗</span></a></li>
       </ul>
     </nav>
@@ -1029,6 +1207,46 @@
         </div>
       </div>
     </div>
+
+    <section class="section recruitment" id="recruitment" aria-labelledby="recruitment-title">
+      <div class="wrap">
+        <div class="recruitment-main">
+          <div class="recruitment-copy" data-reveal>
+            <p class="recruitment-kicker">Pampanga Powerhouse presents</p>
+            <h2 class="recruitment-title" id="recruitment-title">Punishers <span>of Powerhouse</span></h2>
+            <p class="recruitment-statement">Represent the scene. Earn your place.</p>
+            <p class="recruitment-description">Punishers of Powerhouse (PPH) is the competitive team taking shape within Pampanga Powerhouse. We're looking for dedicated fighting-game players who want to improve, compete, and help establish a stronger competitive FGC presence in Pampanga.</p>
+            <p class="recruitment-description">Whether you're already competing in tournaments or ready to take your competitive journey further, this is your opportunity to put yourself forward and become part of what we're building.</p>
+            <div class="recruitment-actions">
+              <a class="button button-primary" href="https://forms.gle/Jw42UYa1izkYRnso6" target="_blank" rel="noopener noreferrer" aria-label="Apply to join Punishers of Powerhouse (opens in a new tab)">Apply to join PPH <span class="arrow" aria-hidden="true">→</span></a>
+              <a class="button button-outline" href="#pph-purpose">Learn about the team <span class="arrow" aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+          <figure class="recruitment-visual" data-reveal>
+            <img src="Community%20Photos/use%20this%20for%20the%20pph%20team.jpg" alt="Punishers of Powerhouse players seated together at gaming setups" loading="lazy">
+            <figcaption>Punishers of Powerhouse</figcaption>
+          </figure>
+        </div>
+        <div class="recruitment-purpose" id="pph-purpose">
+          <div data-reveal>
+            <p class="micro-label">A competitive team within Pampanga Powerhouse</p>
+            <h3>More than a tag.<br><em>A team to represent.</em></h3>
+            <p>We're building a competitive team that values dedication, improvement, teamwork, and respect for the fighting-game community.</p>
+            <p>We want players who are willing to learn, push themselves, support their teammates, and help represent Pampanga wherever they compete.</p>
+          </div>
+          <div data-reveal>
+            <p class="micro-label">Who should apply?</p>
+            <ul class="applicant-list">
+              <li>Fighting-game players interested in competitive growth</li>
+              <li>Players willing to practice and improve consistently</li>
+              <li>Players open to constructive feedback and teamwork</li>
+              <li>Players interested in representing the Pampanga FGC</li>
+              <li>Tournament newcomers and experienced competitors alike</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="section section-dark identity" id="community">
       <div class="wrap identity-layout">
